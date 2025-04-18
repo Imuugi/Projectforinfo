@@ -1,4 +1,4 @@
-from App.databse import db
+from App.database import db
 
 class ApartmentListing(db.Model):
     __tablename__ = 'apartment_listings'
