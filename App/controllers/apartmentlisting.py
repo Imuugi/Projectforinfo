@@ -22,7 +22,7 @@ def delete_apartment(apartment_id,landlord_id):
     db.session.commit()
 
 
-def update_apartment(apartment_id, title=None, description=None, location=None, amenities=None, price=None):
+def update_apartment(apartment_id, title=None, description=None, location=None, amenities=None, price=None, image = None):
     apartment = ApartmentListing.query.get(apartment_id)
     if not apartment:
         return None
@@ -37,6 +37,7 @@ def update_apartment(apartment_id, title=None, description=None, location=None, 
         apartment.amenities = amenities
     if price:
         apartment.price = price
-
+    if image:
+        apartment.image = image
     db.session.commit()
     return apartment
