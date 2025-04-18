@@ -14,8 +14,8 @@ def setup_jwt(app):
 
   # configure's flask jwt to resolve get_current_identity() to the corresponding user's ID
   @jwt.user_identity_loader
-  def user_identity_lookup(identity):
-    user = User.query.filter_by(username=identity).one_or_none()
+  def user_identity_lookup(user_id):
+    user = User.query.filter_by(id = user_id).one_or_none()
     if user:
         return user.id
     return None
@@ -42,3 +42,8 @@ def add_auth_context(app):
           is_authenticated = False
           current_user = None
       return dict(is_authenticated=is_authenticated, current_user=current_user)
+
+@jwt_required()
+def get_current_user():
+  user_id = get_jwt_identity()
+  return User.query.get(user_id)
