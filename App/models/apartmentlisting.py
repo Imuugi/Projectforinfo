@@ -1,5 +1,5 @@
 from App.database import db
-
+from datetime import datetime
 class ApartmentListing(db.Model):
     __tablename__ = 'apartment_listings'
 
