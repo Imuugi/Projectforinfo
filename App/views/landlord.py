@@ -11,4 +11,11 @@ def list_apartments(landlord_id):
     listings = view_listings(landlord_id)
     return render_template('index.html',listings = listings)
 
+
+
+@create_listing
+@landlord.route('/create_review')
+def create_review(landlord_id):
+   
+
    
