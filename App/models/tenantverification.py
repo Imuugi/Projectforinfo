@@ -1,5 +1,5 @@
 from App.database import db
-
+from datetime import datetime
 class TenantVerification(db.Model):
     __tablename__ = 'tenant_verifications'
 
