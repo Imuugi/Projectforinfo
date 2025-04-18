@@ -10,3 +10,11 @@ def create_listing(title,description,location,amenities,price,landlord_id):
 def view_listings(landlord_id):
     listings = ApartmentListing.query.filter_by(landlord_id = landlord_id).all()
     return listings
+
+def verify_tenant(landlord_id,tentant_id):
+    verifiedtenant = TenantVerification(landlord_id,tentant_id)
+    return verifiedtenant
+
+def view_verified_tenants(landlord_id):
+    verifiedtenants = TenantVerification.query.filter_by(landlord_id = landlord_id).all()
+    return verifiedtenants
