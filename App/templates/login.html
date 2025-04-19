@@ -141,27 +141,7 @@
         <input type="password" id="password" name = "password" placeholder="Enter your password" required />
       </div>
       <button class="login-btn" type="submit">Login</button>
-    </form>
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        {% for message in messages %}
-          <p style="color: red;">{{ message }}</p>
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
-    <script>
-      {% if is_authenticated and current_user.user_type == 'tenant' %}
-        window.location.href = "/homepage";
-      {% endif %}
-    </script>
-    <div class="bottom-text">
-      Are you a landlord?
-    </div>
-    <button class="landlord-login-btn" onclick="location.href='landlord-login.html'">Landlord Login</button>
-
-    <div class="bottom-text">
-      Don't have an account?
-    </div>
+    
     <button class="create-account-btn">Create an Account</button>
   </div>
 
