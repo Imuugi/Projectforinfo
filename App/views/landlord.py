@@ -1,14 +1,15 @@
 from App.models import Landlord
 from flask import Blueprint, render_template
-from App.controllers import (view_listings, create_listing, verify_tenant)
+from App.controllers import (view_listings, create_listing, verify_tenant,delete_apartment)
 
 
 landlord = Blueprint('landlord',__name__,template_folder='templates')
 
-@landlord.route('/view_aparetments')
-def list_apartments(landlord_id):
+@landlord.route('/view_apartments')
+def list_apartments():
+    landlord_id = get_jwt_identity()
     listings = view_listings(landlord_id)
-    return render_template('index.html',listings = listings)
+    return render_template('index.html',listingsm  = listings)
 
 
 
@@ -30,17 +31,17 @@ def create_listing_page():
     return render_template('index.html')
 
 
-@landlord.route('landlord/delete-listing',methods = ['GET','POST'])
+@landlord.route('/landlord/delete-listing',methods = ['GET','POST'])
 @jwt_required()
-def delete_lisitng():
+def delete_listing():
     landlord_id = get_jwt_identity()
     
     if request.method == 'POST':
-        listing = request.form.get('listing_id')
+        listing_id = request.form.get('listing_id')
 
         if not listing_id:
             return "Missing listing ID", 400
-        deleted_listing = delete_listing_controller(landlord_id, listing_id)
+        deleted_listing = delete_apartment(landlord_id, listing_id)
 
         if deleted_listing:
             return "Listing deleted successfully!", 200
@@ -49,13 +50,14 @@ def delete_lisitng():
 
     return render_template('index.html')
 
-@landlord.route('landlord/verifytenant', methods = ['GET','POST'])
+@landlord.route('/landlord/verifytenant', methods = ['GET','POST'])
 @jwt_required()
 def verify_tenant():
-    landlord_id = get_jwt_identity()
-    tenant_id = request.form.get('tenant_id')
-    verify_tenant(landlord_id,tenant_id)
+    if request.method == 'POST':
+        landlord_id = get_jwt_identity()
+        tenant_id = request.form.get('tenant_id')
+        verify_tenant(landlord_id,tenant_id)
+        return "Tenant verified", 200
 
     return render_template('index.html')
 
-    
