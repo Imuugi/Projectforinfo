@@ -1,11 +1,10 @@
-from App.models import Landlord
 from flask import Blueprint, render_template
 from App.controllers import (view_listings, create_listing, verify_tenant,delete_apartment)
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 landlord_views = Blueprint('landlord_views',__name__,template_folder='../templates')
 
-@landlord_views.route('/view_apartments')
+@landlord_views.route('/landlord/view_apartments')
 def list_apartments():
     landlord_id = get_jwt_identity()
     listings = view_listings(landlord_id)
