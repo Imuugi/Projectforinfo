@@ -1,11 +1,11 @@
 from flask import Blueprint, render_template, jsonify, request, flash, send_from_directory, flash, redirect, url_for
 from flask_jwt_extended import jwt_required, current_user, unset_jwt_cookies, set_access_cookies
-
+from App.models import Landlord
 
 from.index import index_views
 
 from App.controllers import (
-    login
+    login,get_user_by_username
 )
 
 auth_views = Blueprint('auth_views', __name__, template_folder='../templates')
@@ -30,31 +30,40 @@ def identify_page():
 @auth_views.route('/login', methods=['POST'])
 def login_action():
     data = request.form
-    token = login(data['username'], data['password'])
+    username = data.get('username')
+    password = data.get('password')
+
+    user = get_user_by_username(username)
+
+    if not user or not user.check_password(password):
+        flash('Bad username or password given', 'error')
+        return redirect(url_for('auth_views.get_login_page')), 401
+
+    # Determine user type
+    if isinstance(user, Landlord):
+        user_type = 'landlord'
+    else:
+        user_type = 'tenant'
+
+    # Generate token that stores username + user_type
+    token = login(username, password)  # Pass type to token creator
+
     if not token:
-        flash('Bad username or password given')
-        return redirect(url_for('auth_views.get__page')), 401
+        flash('Failed to generate login token', 'error')
+        return redirect(url_for('auth_views.get_login_page')), 500
+
+    # Redirect to correct dashboard
+    if user_type == 'landlord':
+        response = redirect(url_for('index_views.landlord_home'))
     else:
         response = redirect(url_for('index_views.get_home_page'))
-        set_access_cookies(response, token)
-        return response
 
-@auth_views.route('/landlord-login', methods=['GET', 'POST'])
-def landlord_login():
-    if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
-        
-        # Add your landlord authentication logic here
-        if username == 'landlord' and password == 'landlordpass':  # Demo credentials
-            session['username'] = username
-            session['user_type'] = 'landlord'  # Important for distinguishing user types
-            return redirect(url_for('landlord_home'))
-        else:
-            flash('Invalid landlord credentials')
-            return redirect(url_for('auth_views.landlord_login'))
-    
-    return render_template('landlord-login.html')
+    # Attach token to response
+    set_access_cookies(response, token)
+
+    flash('Login Successful', 'success')
+    return response
+
 
 @auth_views.route('/logout', methods=['GET'])
 def logout_action():
