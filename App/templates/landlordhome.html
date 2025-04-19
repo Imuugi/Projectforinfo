@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landlord Dashboard | Apartment Reviews</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px; /* Wider to accommodate sidebar */
+            margin: 0 auto;
+            padding: 20px;
+            color: #5A7D7C;
+            background-color: #E6F1F2;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 20px;
+        }
+        h1 {
+            color: #5A7D7C;
+            border-bottom: 2px solid #FA8E61;
+            padding-bottom: 10px;
+            grid-column: 1 / -1; /* Span full width */
+        }
+        .search-box {
+            background-color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #5A7D7C;
+            grid-column: 2; /* Main content area */
+        }
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            grid-column: 2;
+        }
+        .filters div {
+            padding: 8px 15px;
+            background-color: #5A7D7C;
+            color: white;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        .apartment-card {
+            border: 1px solid #5A7D7C;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: white;
+            grid-column: 2;
+        }
+        .stars {
+            color: #FA8E61;
+        }
+        .image-placeholder {
+            height: 200px;
+            background-color: white;
+            border: 1px dashed #5A7D7C;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5A7D7C;
+            grid-column: 2;
+        }
+        .search-options button {
+            margin: 0.3rem;
+            padding: 0.5rem 1rem;
+            border: none;
+            background-color: #5A7D7C;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .search-options button:hover {
+            background-color: #45615f;
+        }
+        
+        /* Landlord-specific sidebar */
+        .landlord-sidebar {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid #5A7D7C;
+            height: fit-content;
+        }
+        .landlord-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .landlord-btn {
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            transition: transform 0.2s ease;
+        }
+        .landlord-btn:hover {
+            transform: translateY(-2px);
+        }
+        .btn-create {
+            background-color: #FA8E61; /* Coral */
+        }
+        .btn-view {
+            background-color: #5A7D7C; /* Slate teal */
+        }
+        .landlord-header {
+            color: #5A7D7C;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Landlord Dashboard</h1>
+    
+    <!-- Landlord sidebar -->
+    <div class="landlord-sidebar">
+        <div class="landlord-header">My Listings</div>
+        <div class="landlord-actions">
+            <button class="landlord-btn btn-create" onclick="location.href='/create-listing'">
+                ＋ Create New Listing
+            </button>
+            <button class="landlord-btn btn-view" onclick="location.href='/my-listings'">
+                📋 View My Listings
+            </button>
+        </div>
+    </div>
+    
+    <!-- Main content (same as tenant view) -->
+    <div class="search-box">
+        <form method="GET" action="/search">
+            <input type="text" name="query" placeholder="Search..." required />
+            <div class="search-options">
+                <button type="submit" name="filter" value="location">Location</button>
+                <button type="submit" name="filter" value="amenities">Amenities</button>
+                <button type="submit" name="filter" value="price">Price</button>
+            </div>
+        </form>
+    </div>
+    
+    
+    <div class="apartment-card">
+       
+    </div>
+    
+    <div class="image-placeholder">
+        Apartment Image
+    </div>
+</body>
+</html>

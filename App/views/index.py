@@ -19,3 +19,13 @@ def health_check():
 @index_views.route('/homepage', methods=['GET'])
 def get_home_page():
     return render_template('homepage.html')
+
+@index_views.route('/landlordhome')
+def landlord_home():
+    if 'username' not in session or session.get('user_type') != 'landlord':
+        return redirect(url_for('landlord_login'))
+    return render_template('landlordhome.html')
+
+@index_views.route('/landlord-login.html')  # Route to serve the landlord login page
+def show_landlord_login():
+    return render_template('landlord-login.html')

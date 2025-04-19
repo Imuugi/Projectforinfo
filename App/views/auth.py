@@ -33,11 +33,28 @@ def login_action():
     token = login(data['username'], data['password'])
     if not token:
         flash('Bad username or password given')
-        return redirect(url_for('auth_views.get_login_page')), 401
+        return redirect(url_for('auth_views.get__page')), 401
     else:
         response = redirect(url_for('index_views.get_home_page'))
         set_access_cookies(response, token)
         return response
+
+@auth_views.route('/landlord-login', methods=['GET', 'POST'])
+def landlord_login():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        
+        # Add your landlord authentication logic here
+        if username == 'landlord' and password == 'landlordpass':  # Demo credentials
+            session['username'] = username
+            session['user_type'] = 'landlord'  # Important for distinguishing user types
+            return redirect(url_for('landlord_home'))
+        else:
+            flash('Invalid landlord credentials')
+            return redirect(url_for('auth_views.landlord_login'))
+    
+    return render_template('landlord-login.html')
 
 @auth_views.route('/logout', methods=['GET'])
 def logout_action():
