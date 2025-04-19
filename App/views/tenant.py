@@ -24,3 +24,27 @@ def view_reviews():
     tenant_id = get_jwt_identity()
     reviews = view_reviews(tenant_id)
     return render_template('index.html',reviews = reviews)
+
+@tenant_views.route('/search')
+def search():
+    query = request.args.get('query')
+    filter_by = request.args.get('filter')
+
+    if not query or not filter_by:
+        # maybe flash a message or redirect back
+        return "Missing search parameters", 400
+
+    if filter_by == 'location':
+        results = ApartmentListing.query.filter(ApartmentListing.location.ilike(f"%{query}%")).all()
+    elif filter_by == 'amenities':
+        results = ApartmentListing.query.filter(ApartmentListing.amenities.ilike(f"%{query}%")).all()
+    elif filter_by == 'price':
+        try:
+            price_value = float(query)
+            results = ApartmentListing.query.filter(ApartmentListing.price <= price_value).all()
+        except ValueError:
+            results = []
+    else:
+        results = []
+
+    return render_template('search_results.html', results=results, query=query, filter_by=filter_by)
