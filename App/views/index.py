@@ -1,5 +1,5 @@
 from flask import Blueprint, redirect, render_template, request, send_from_directory, jsonify
-from App.controllers import create_user, initialize
+from App.controllers import create_user, initialize,get_user_by_username
 
 index_views = Blueprint('index_views', __name__, template_folder='../templates')
 
@@ -22,8 +22,6 @@ def get_home_page():
 
 @index_views.route('/landlordhome')
 def landlord_home():
-    if 'username' not in session or session.get('user_type') != 'landlord':
-        return redirect(url_for('landlord_login'))
     return render_template('landlordhome.html')
 
 @index_views.route('/landlord-login.html')  # Route to serve the landlord login page

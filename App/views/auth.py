@@ -40,7 +40,7 @@ def login_action():
         return redirect(url_for('auth_views.get_login_page')), 401
 
     # Determine user type
-    if isinstance(user, Landlord):
+    if user.user_type == 'landlord':
         user_type = 'landlord'
     else:
         user_type = 'tenant'
