@@ -1,11 +1,11 @@
 from App.models import Landlord
 from flask import Blueprint, render_template
 from App.controllers import (view_listings, create_listing, verify_tenant,delete_apartment)
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
+landlord_views = Blueprint('landlord_views',__name__,template_folder='../templates')
 
-landlord = Blueprint('landlord',__name__,template_folder='templates')
-
-@landlord.route('/view_apartments')
+@landlord_views.route('/view_apartments')
 def list_apartments():
     landlord_id = get_jwt_identity()
     listings = view_listings(landlord_id)
@@ -14,7 +14,7 @@ def list_apartments():
 
 
 
-@landlord.route('/landlord/create-listing', methods=['GET', 'POST'])
+@landlord_views.route('/landlord/create-listing', methods=['GET', 'POST'])
 @jwt_required()
 def create_listing_page():
     if request.method == 'POST':
@@ -31,7 +31,7 @@ def create_listing_page():
     return render_template('index.html')
 
 
-@landlord.route('/landlord/delete-listing',methods = ['GET','POST'])
+@landlord_views.route('/landlord/delete-listing',methods = ['GET','POST'])
 @jwt_required()
 def delete_listing():
     landlord_id = get_jwt_identity()
@@ -50,7 +50,7 @@ def delete_listing():
 
     return render_template('index.html')
 
-@landlord.route('/landlord/verifytenant', methods = ['GET','POST'])
+@landlord_views.route('/landlord/verifytenant', methods = ['GET','POST'])
 @jwt_required()
 def verify_tenant():
     if request.method == 'POST':
