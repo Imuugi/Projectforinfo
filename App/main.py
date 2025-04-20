@@ -90,12 +90,12 @@ def create_dummy_data():
     db.session.add(listing3)
     db.session.commit()
 
-    # Create a dummy user "bob" who will leave reviews
+
     bill = Tenant(username="bill", password="billpass")
     db.session.add(bill)
     db.session.commit()
 
-    # Now create some reviews by bob
+   
     review1 = Review(
         rating=4,
         content="Great place, very cozy and close to everything!",

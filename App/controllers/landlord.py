@@ -1,4 +1,4 @@
-from App.models import Landlord, ApartmentListing, TenantVerification, Tenant
+from App.models import Landlord, ApartmentListing, TenantVerification,Tenant
 from App.database import db
 
 import base64

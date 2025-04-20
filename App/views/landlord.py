@@ -1,11 +1,9 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from werkzeug.utils import secure_filename
-from App.controllers import (view_listings, create_listing, verify_tenant,delete_apartment)
+from App.controllers import (view_listings, create_listing, verify_tenant,delete_apartment,verify_tenant,delete_request)
 from App.database import db
-from App.models import User
+from App.models import User,ApartmentListing,Landlord,VerificationRequest,TenantVerification,Tenant
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from App.models import ApartmentListing,Landlord,VerificationRequest
-from App.controllers import verify_tenant,delete_request
 landlord_views = Blueprint('landlord_views',__name__,template_folder='../templates')
 
 @landlord_views.route('/viewlisting')
@@ -63,15 +61,6 @@ def delete_listing():
 
     return render_template('createlisting.html')
 
-@landlord_views.route('/landlord/verifytenant', methods = ['GET','POST'])
-@jwt_required()
-def verify_tenant():
-    if request.method == 'POST':
-        landlord_id = get_jwt_identity()
-        tenant_id = request.form.get('tenant_id')
-        verify_tenant(landlord_id,tenant_id)
-        return "Tenant verified", 200
-
     return render_template('index.html')
 
 @landlord_views.route('/ldsearch')
@@ -106,17 +95,17 @@ def accept_request():
         tenant_id = request.form.get('tenant_id')
         apartment_id = request.form.get('apartment_id')
         request_id = request.form.get('request_id')
-        
+        print(f"TENANT ID RECEIVED: {tenant_id}")
         if not all([tenant_id, apartment_id, request_id]):
             return "Missing required parameters", 400
 
         try:
             # Get tenant by ID
-            tenant = Tenant.query.get(tenant_id)
+            tenant = Tenant.query.filter_by(username=tenant_id).first()
             if not tenant:
                 return "Tenant not found", 404
                 
-            verify_tenant(landlord.id, tenant.id, int(apartment_id))
+            verify_tenant(int(landlord.id),int( tenant.id), int(apartment_id))
             delete_request(request_id)
             
             requests = VerificationRequest.query.filter_by(landlord_id=landlord.id).all()
