@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 from App.controllers import (view_listings, create_listing, verify_tenant,delete_apartment)
 from App.models import User
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from App.models import ApartmentListing
+from App.models import ApartmentListing,Landlord,VerificationRequest
 from App.controllers import verify_tenant,delete_request
 landlord_views = Blueprint('landlord_views',__name__,template_folder='../templates')
 
@@ -95,13 +95,17 @@ def accept_request():
         landlord_id = request.form['landlord_id']
         verify_tenant(landlord_id,tenant_id,apartment_id)
         delete_request(request_id)
-        return render_template('landlordhome.html')
+        requests = VerificationRequest.query.filter_by(landlord_id=landlord.id).all()
+        return render_template('landlordhome.html',requests = requests)
 
        
 @landlord_views.route('/landlord/decline_request',methods=['GET', 'POST'])
 @jwt_required()
 def decline_request():
+    current_username = get_jwt_identity()
+    landlord = Landlord.query.filter_by(username=current_username).first()
     request_id = request.form['request_id']
+    requests = VerificationRequest.query.filter_by(landlord_id=landlord.id).all()
     delete_request(request_id)
-    return render_template('landlordhome.html', listings=ApartmentListing.query.all())
+    return render_template('landlordhome.html', listings=ApartmentListing.query.all(),requests = requests)
 

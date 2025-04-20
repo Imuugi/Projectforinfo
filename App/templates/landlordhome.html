@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -214,7 +214,7 @@
     <div class="verification-requests">
       {% for req in requests %}
       <div>
-        <p><strong>{{ req.tenant.username }}</strong> requested for apartment <strong>{{ req.apartment_id }}</strong></p>
+        <p><strong>{{ req.tenant_id }}</strong> requested for apartment <strong>{{ req.apartment_id }}</strong></p>
         <form method="POST" action="/landlord/accept_request" style="display: inline;">
           <input type="hidden" name="tenant_id" value="{{ req.tenant_id }}">
           <input type="hidden" name="landlord_id" value="{{ req.landlord_id }}">

@@ -8,15 +8,17 @@ tenant_views = Blueprint('tenant_views',__name__,template_folder='../templates')
 @jwt_required()
 def post_review():
     tenant_id = get_jwt_identity()
+    listings = ApartmentListing.query.all()
     if request.method == 'POST':
+        
         content = request.form['content']
         rating = request.form['rating']
         apartment_id = request.form['apartment_id']
 
         review = create_review(tenant_id,content,rating,apartment_id)
-        return render_template('index.html')
+        return render_template('homepage.html',listings = listings)
     
-    return render_template('index.html')
+    return render_template('homepage.html',listings = listings)
 
 @tenant_views.route('/tenant/view_reviews',methods=['GET', 'POST'])
 @jwt_required()
