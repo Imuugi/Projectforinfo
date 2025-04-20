@@ -63,9 +63,8 @@ def create_dummy_data():
         amenities="WiFi, Air Conditioning, Gym Access",
         price=1200.00,
         landlord_id=landlord1.id,
-        image="https://images.unsplash.com/photo-1493809842364-78817add7ffb"
+        image="sample_images/apartment1.jpg"
     )
-
     listing2 = ApartmentListing(
         title="Spacious 2 Bedroom Apartment",
         description="Large two-bedroom unit near the park. Pet-friendly!",
@@ -73,7 +72,7 @@ def create_dummy_data():
         amenities="Washer/Dryer, Pet Friendly, Parking",
         price=1800.00,
         landlord_id=landlord1.id,
-        image="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267"
+        image="sample_images/apartment2.jpg"
     )
 
     listing3 = ApartmentListing(
@@ -83,7 +82,7 @@ def create_dummy_data():
         amenities="WiFi, Rooftop Pool, Gym Access",
         price=1500.00,
         landlord_id=landlord2.id,
-        image="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688"
+        image="sample_images/apartment3.jpg"
     )
 
     db.session.add(listing1)

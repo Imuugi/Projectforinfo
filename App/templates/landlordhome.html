@@ -249,7 +249,7 @@
       <div class="apartment-card">
         <h3><a href="/apartment/{{ listing.id }}" style="text-decoration: none; color: inherit;">{{ listing.title }}</a></h3>
         {% if listing.image %}
-          <img src="{{ listing.image }}" alt="Apartment Image" class="listing-image">
+          <img src="{{ url_for('static', filename=listing.image) }}" alt="Apartment Image" class="listing-image">
         {% else %}
           <div class="image-placeholder">No Image Available</div>
         {% endif %}

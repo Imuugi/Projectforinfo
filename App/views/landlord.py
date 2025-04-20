@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
+from werkzeug.utils import secure_filename
 from App.controllers import (view_listings, create_listing, verify_tenant,delete_apartment)
 from App.models import User
 from flask_jwt_extended import jwt_required, get_jwt_identity
@@ -29,9 +30,16 @@ def create_listing_page():
             location = request.form['location']
             amenities = request.form['amenities']
             price = float(request.form['price'])
-            image = request.form.get('image')
             
-            listing = create_listing(title, description, location, amenities, price, user.landlord.id, image)
+            image = request.files.get('image')
+            image_path = None
+            if image:
+                filename = secure_filename(image.filename)
+                filepath = f'App/static/sample_images/{filename}'
+                image.save(filepath)
+                image_path = f'sample_images/{filename}'
+            
+            listing = create_listing(title, description, location, amenities, price, user.landlord.id, image_path)
             return redirect(url_for('index_views.landlord_home'))
             
     return render_template('createlisting.html')
@@ -104,4 +112,3 @@ def decline_request():
     request_id = request.form['request_id']
     delete_request(request_id)
     return render_template('landlordhome.html', listings=ApartmentListing.query.all())
-

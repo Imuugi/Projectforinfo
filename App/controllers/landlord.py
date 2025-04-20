@@ -1,7 +1,11 @@
 from App.models import Landlord,ApartmentListing,TenantVerification
 from App.database import db
 
+import base64
+
 def create_listing(title,description,location,amenities,price,landlord_id,image=None):
+    if isinstance(image, bytes):
+        image = base64.b64encode(image).decode('utf-8')
     newlisting = ApartmentListing(title=title,description=description,location=location,amenities=amenities,price=price,landlord_id=landlord_id,image=image)
     db.session.add(newlisting)
     db.session.commit()

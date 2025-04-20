@@ -132,7 +132,7 @@
     <div class="listing-card">
       <div class="listing-image">
         {% if listing.image %}
-          <img src="{{ listing.image }}" alt="{{ listing.title }}">
+        <img src="{{ url_for('static', filename='apartment_images/' + listing.image) }}" alt="{{ listing.title }}">
         {% else %}
           [No Image Available]
         {% endif %}
