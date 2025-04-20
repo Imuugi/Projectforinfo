@@ -57,7 +57,7 @@
   {% if results %}
     {% for apartment in results %}
     <div class="listing">
-      <h2>{{ apartment.title }}</h2>
+      <h2><a href="/apartment/{{ apartment.id }}" style="text-decoration: none; color: inherit;">{{ apartment.title }}</a></h2>
       <p>{{ apartment.description }}</p>
       <p><strong>Location:</strong> {{ apartment.location }}</p>
       <p><strong>Amenities:</strong> {{ apartment.amenities }}</p>

@@ -1,6 +1,7 @@
 from flask import Blueprint, redirect, render_template, request, send_from_directory, jsonify
 from App.controllers import create_user, initialize,get_user_by_username
-from App.models import ApartmentListing
+from App.models import ApartmentListing,Review,Tenant
+from flask_jwt_extended import jwt_required,get_jwt_identity
 
 index_views = Blueprint('index_views', __name__, template_folder='../templates')
 
@@ -38,6 +39,17 @@ def show_login():
     return render_template('login.html', methods=['GET'])
 
 @index_views.route('/apartment/<int:apartment_id>')
+@jwt_required()
 def apartment_page(apartment_id):
     apartment = ApartmentListing.query.get_or_404(apartment_id)
-    return render_template('apartmentpage.html', apartment=apartment)
+    reviews = Review.query.filter_by(apartment_id=apartment.id).all()
+    
+    current_user = get_jwt_identity() 
+    
+    is_tenant = False
+    if current_user:
+        user = Tenant.query.filter_by(username=current_user).first()
+        if user:
+            is_tenant = True
+
+    return render_template('apartmentpage.html', apartment=apartment, reviews=reviews, is_tenant=is_tenant)

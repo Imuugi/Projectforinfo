@@ -11,7 +11,7 @@ class Review(db.Model):
     tenant_id = db.Column(db.Integer, db.ForeignKey('tenants.id'), nullable=False)
     apartment_id = db.Column(db.Integer, db.ForeignKey('apartment_listings.id'), nullable=False)
 
-    def __init_(self,content,rating,tenant_id,apartment_id):
+    def __init__(self,content,rating,tenant_id,apartment_id):
         self.content = content
         self.rating = rating
         self.tenant_id = tenant_id
