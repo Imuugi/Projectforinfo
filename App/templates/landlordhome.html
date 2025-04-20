@@ -126,12 +126,13 @@
     <div class="landlord-sidebar">
         <div class="landlord-header">My Listings</div>
         <div class="landlord-actions">
-            <button class="landlord-btn btn-create" onclick="location.href='/create-listing'">
+            <button class="landlord-btn btn-create" onclick="window.location.href='{{ url_for("landlord_views.create_listing_page") }}'">
                 ＋ Create New Listing
             </button>
-            <button class="landlord-btn btn-view" onclick="location.href='/my-listings'">
+            <button class="landlord-btn btn-view" onclick="window.location.href='/viewlisting'">
                 📋 View My Listings
             </button>
+            
         </div>
     </div>
     

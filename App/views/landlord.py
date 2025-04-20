@@ -4,13 +4,12 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from App.models import ApartmentListing
 landlord_views = Blueprint('landlord_views',__name__,template_folder='../templates')
 
-@landlord_views.route('/landlord/view_apartments')
+@landlord_views.route('/viewlisting')
+@jwt_required()
 def list_apartments():
     landlord_id = get_jwt_identity()
     listings = view_listings(landlord_id)
-    return render_template('index.html',listingsm  = listings)
-
-
+    return render_template('viewlisting.html', listings =listings)
 
 
 @landlord_views.route('/landlord/create-listing', methods=['GET', 'POST'])

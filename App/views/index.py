@@ -24,6 +24,10 @@ def get_home_page():
 def landlord_home():
     return render_template('landlordhome.html')
 
-@index_views.route('/landlord-login.html')  # Route to serve the landlord login page
+@index_views.route('/landlord-login.html') 
 def show_landlord_login():
     return render_template('landlord-login.html')
+    
+@index_views.route('/login.html') 
+def show_login():
+    return render_template('login.html', methods=['GET'])
