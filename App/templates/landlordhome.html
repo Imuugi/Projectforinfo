@@ -137,12 +137,11 @@
     
     <!-- Main content (same as tenant view) -->
     <div class="search-box">
-        <form method="GET" action="/search">
+        <form method="GET" action="/ldsearch">
             <input type="text" name="query" placeholder="Search..." required />
             <div class="search-options">
-                <button type="submit" name="filter" value="location">Location</button>
-                <button type="submit" name="filter" value="amenities">Amenities</button>
-                <button type="submit" name="filter" value="price">Price</button>
+                <button type="submit" name="filter" value="location">Search by Location</button>
+                <button type="submit" name="filter" value="amenities">Search by Amenities</button>
             </div>
         </form>
     </div>

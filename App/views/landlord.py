@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
 from App.controllers import (view_listings, create_listing, verify_tenant,delete_apartment)
 from flask_jwt_extended import jwt_required, get_jwt_identity
-
+from App.models import ApartmentListing
 landlord_views = Blueprint('landlord_views',__name__,template_folder='../templates')
 
 @landlord_views.route('/landlord/view_apartments')
@@ -60,3 +60,20 @@ def verify_tenant():
 
     return render_template('index.html')
 
+@landlord_views.route('/ldsearch')
+def search():
+    query = request.args.get('query')
+    filter_by = request.args.get('filter')
+
+    if not query or not filter_by:
+        # maybe flash a message or redirect back
+        return "Missing search parameters", 400
+
+    if filter_by == 'location':
+        results = ApartmentListing.query.filter(ApartmentListing.location.ilike(f"%{query}%")).all()
+    elif filter_by == 'amenities':
+        results = ApartmentListing.query.filter(ApartmentListing.amenities.ilike(f"%{query}%")).all()
+    else:
+        results = []
+
+    return render_template('landlord_search_results.html', results=results, query=query, filter_by=filter_by)
