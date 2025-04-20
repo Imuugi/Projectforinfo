@@ -1,4 +1,4 @@
-from App.models import Landlord,ApartmentListing,TenantVerification
+from App.models import Landlord, ApartmentListing, TenantVerification, Tenant
 from App.database import db
 
 import base64
@@ -15,11 +15,15 @@ def view_listings(landlord_id):
     listings = ApartmentListing.query.filter_by(landlord_id = landlord_id).all()
     return listings
 
-def verify_tenant(landlord_id,tenant_id,apartment_id):
-    verifiedtenant = TenantVerification(landlord_id = landlord_id,tenant_id = tenant_id,apartment_id= apartment_id)
-    db.session.add(verifiedtenant)
+def verify_tenant(landlord_id, tenant_id, apartment_id):
+    verification = TenantVerification(
+        landlord_id=landlord_id,
+        tenant_id=tenant_id,
+        apartment_id=apartment_id
+    )
+    db.session.add(verification)
     db.session.commit()
-    return verifiedtenant
+    return verification
 
 def view_verified_tenants(landlord_id):
     verifiedtenants = TenantVerification.query.filter_by(landlord_id = landlord_id).all()
