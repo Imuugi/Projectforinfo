@@ -22,6 +22,8 @@ def get_home_page():
     all_apartments = ApartmentListing.query.all()
     return render_template('homepage.html', listings=all_apartments)
 
+
+
 @index_views.route('/landlordhome')
 def landlord_home():
     all_apartments = ApartmentListing.query.all()
@@ -34,3 +36,8 @@ def show_landlord_login():
 @index_views.route('/login.html') 
 def show_login():
     return render_template('login.html', methods=['GET'])
+
+@index_views.route('/apartment/<int:apartment_id>')
+def apartment_page(apartment_id):
+    apartment = ApartmentListing.query.get_or_404(apartment_id)
+    return render_template('apartmentpage.html', apartment=apartment)
