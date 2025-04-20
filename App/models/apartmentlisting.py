@@ -9,7 +9,7 @@ class ApartmentListing(db.Model):
     location = db.Column(db.String(200), nullable=False)
     amenities = db.Column(db.Text, nullable=False)  
     price = db.Column(db.Float, nullable=False)
-    image = db.Column(db.String,nullable = True)
+    image = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     landlord_id = db.Column(db.Integer, db.ForeignKey('landlords.id'), nullable=False)
