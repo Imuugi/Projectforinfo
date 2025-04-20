@@ -22,10 +22,9 @@ def create_review(tenant_id,content,rating,apartment_id):
     )
         db.session.add(verification_request)
         db.session.commit()
+        return None
 
     #flash('You must be verified by the landlord before reviewing this property.', 'info')
-        return render_template('homepage.html')
-
     new_review = Review(content = content,rating = rating,tenant_id = tenant_id,apartment_id = apartment_id)
     db.session.add(new_review)
     db.session.commit()
