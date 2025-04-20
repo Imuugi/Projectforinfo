@@ -6,9 +6,7 @@ from App.controllers import verify_tenant,delete_request
 landlord_views = Blueprint('landlord_views',__name__,template_folder='../templates')
 
 @landlord_views.route('/viewlisting')
-@jwt_required()
 def list_apartments():
-    landlord_id = get_jwt_identity()
     listings = view_listings(landlord_id)
     return render_template('viewlisting.html', listings =listings)
 
@@ -64,7 +62,6 @@ def verify_tenant():
     return render_template('index.html')
 
 @landlord_views.route('/ldsearch')
-@jwt_required()
 def search():
     query = request.args.get('query')
     filter_by = request.args.get('filter')
