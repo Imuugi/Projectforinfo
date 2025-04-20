@@ -29,9 +29,9 @@ def create_listing_page():
             location = request.form['location']
             amenities = request.form['amenities']
             price = float(request.form['price'])
-           
+            image = request.form.get('image')
             
-            listing = create_listing(title, description, location, amenities, price, user.landlord.id)
+            listing = create_listing(title, description, location, amenities, price, user.landlord.id, image)
             return redirect(url_for('index_views.landlord_home'))
             
     return render_template('createlisting.html')

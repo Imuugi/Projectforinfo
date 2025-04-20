@@ -62,7 +62,8 @@ def create_dummy_data():
         location="Downtown",
         amenities="WiFi, Air Conditioning, Gym Access",
         price=1200.00,
-        landlord_id=landlord1.id
+        landlord_id=landlord1.id,
+        image="https://images.unsplash.com/photo-1493809842364-78817add7ffb"
     )
 
     listing2 = ApartmentListing(
@@ -71,7 +72,8 @@ def create_dummy_data():
         location="Uptown",
         amenities="Washer/Dryer, Pet Friendly, Parking",
         price=1800.00,
-        landlord_id=landlord1.id
+        landlord_id=landlord1.id,
+        image="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267"
     )
 
     listing3 = ApartmentListing(
@@ -80,7 +82,8 @@ def create_dummy_data():
         location="Midtown",
         amenities="WiFi, Rooftop Pool, Gym Access",
         price=1500.00,
-        landlord_id=landlord2.id
+        landlord_id=landlord2.id,
+        image="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688"
     )
 
     db.session.add(listing1)

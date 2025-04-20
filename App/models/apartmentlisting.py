@@ -15,10 +15,11 @@ class ApartmentListing(db.Model):
     landlord_id = db.Column(db.Integer, db.ForeignKey('landlords.id'), nullable=False)
     reviews = db.relationship('Review', backref='apartment', lazy=True)
 
-    def __init__(self,title,description,location,amenities,price,landlord_id):
+    def __init__(self,title,description,location,amenities,price,landlord_id,image=None):
         self.title = title
         self.description = description
         self.location = location
         self.amenities = amenities
         self.price = price
         self.landlord_id = landlord_id
+        self.image = image

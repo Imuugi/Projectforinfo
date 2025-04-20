@@ -1,8 +1,8 @@
 from App.models import Landlord,ApartmentListing,TenantVerification
 from App.database import db
 
-def create_listing(title,description,location,amenities,price,landlord_id):
-    newlisting = ApartmentListing(title = title,description = description,location = location,amenities = amenities,price = price, landlord_id = landlord_id)
+def create_listing(title,description,location,amenities,price,landlord_id,image=None):
+    newlisting = ApartmentListing(title=title,description=description,location=location,amenities=amenities,price=price,landlord_id=landlord_id,image=image)
     db.session.add(newlisting)
     db.session.commit()
     return newlisting
