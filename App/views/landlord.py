@@ -8,7 +8,7 @@ landlord_views = Blueprint('landlord_views',__name__,template_folder='../templat
 def list_apartments():
     landlord_id = get_jwt_identity()
     listings = view_listings(landlord_id)
-    return render_template('index.html',listingsm  = listings)
+    return render_template('index.html',listings  = listings)
 
 
 
