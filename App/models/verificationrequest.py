@@ -5,7 +5,6 @@ class VerificationRequest(db.Model):
     tenant_id = db.Column(db.Integer, db.ForeignKey('tenants.id'), nullable=False)
     landlord_id = db.Column(db.Integer, db.ForeignKey('landlords.id'), nullable=False)
     apartment_id = db.Column(db.Integer, db.ForeignKey('apartment_listings.id'), nullable=False)
-    status = db.Column(db.String(20), default='pending') 
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __init__(self,tenant_id,landlord_id,apartment_id):
