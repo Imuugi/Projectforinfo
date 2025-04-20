@@ -114,10 +114,24 @@
     .search-filters button:hover {
       background-color: #1e5562;
     }
+
+    .logout-btn {
+      background-color: #FF7B41;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 5px;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
   <h1>Apartment Reviews</h1>
+
+  <div style="position: absolute; top: 20px; right: 20px;">
+    {% if is_authenticated %}
+        <a href="{{ url_for('auth_views.logout_action') }}" class="logout-btn">Logout</a>
+    {% endif %}
+  </div>
 
   <div class="search-box">
     <form method="GET" action="/search">
@@ -152,8 +166,5 @@
   {% endfor %}
 
 </div>
-</body>
-</html>
-  </div>
 </body>
 </html>

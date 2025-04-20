@@ -102,6 +102,17 @@
     </style>
 </head>
 <body>
+    <div style="margin-bottom: 20px;">
+        {% if current_user.user_type == 'tenant' %}
+            <a href="/homepage" style="text-decoration: none;">
+                <button>← Back to Homepage</button>
+            </a>
+        {% else %}
+            <a href="/landlordhome" style="text-decoration: none;">
+                <button>← Back to Dashboard</button>
+            </a>
+        {% endif %}
+    </div>
     <h1>{{ apartment.title }}</h1>
 
     <div class="apartment-details">

@@ -34,6 +34,11 @@
       text-align: center;
     }
 
+    .logo-container {
+      margin-bottom: 1.8rem; /* Added margin for spacing below the logo */
+      text-align: center; /* Center the logo */
+    }
+
     .login-title {
       font-size: 1.6rem;
       font-weight: bold;
@@ -133,7 +138,9 @@
 <body>
 
   <div class="login-container">
-    <div class="login-title">Maco D Place</div>
+      <div class="logo-container">
+        <img src="{{ url_for('static', filename='sample_images/logo.jpg') }}" alt="Maco D Place Logo" style="max-width: 200px; margin-bottom: 1.8rem;">
+      </div>
     <form method="POST" action="/login">
       <div>
         <label for="Username">Username</label>
