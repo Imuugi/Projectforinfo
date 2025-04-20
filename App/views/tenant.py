@@ -6,7 +6,7 @@ tenant_views = Blueprint('tenant_views',__name__,template_folder='../templates')
 
 @tenant_views.route('/tenant/create_review',methods=['GET', 'POST'])
 @jwt_required()
-def create_review():
+def post_review():
     tenant_id = get_jwt_identity()
     if request.method == 'POST':
         content = request.form['content']
