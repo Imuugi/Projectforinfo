@@ -11,8 +11,8 @@ def view_listings(landlord_id):
     listings = ApartmentListing.query.filter_by(landlord_id = landlord_id).all()
     return listings
 
-def verify_tenant(landlord_id,tenant_id):
-    verifiedtenant = TenantVerification(landlord_id = landlord_id,tenant_id = tenant_id)
+def verify_tenant(landlord_id,tenant_id,apartment_id):
+    verifiedtenant = TenantVerification(landlord_id = landlord_id,tenant_id = tenant_id,apartment_id= apartment_id)
     db.session.add(verifiedtenant)
     db.session.commit()
     return verifiedtenant

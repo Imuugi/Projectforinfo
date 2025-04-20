@@ -6,10 +6,23 @@ def create_review(tenant_id,content,rating,apartment_id):
     if not apartment:
         return None
 
-    verified = TenantVerification.query.filter_by(landlord_id = apartment.landlord_id).first()
+    verified = TenantVerification.query.filter_by(
+    landlord_id=apartment.landlord_id,
+    apartment_id=apartment.id).first()
 
     if not verified:
-        return None
+
+    # Create a verification request
+        verification_request = VerificationRequest(
+        tenant_id=current_user.id,
+        apartment_id=apartment.id,
+        landlord_id=apartment.landlord_id
+    )
+    db.session.add(verification_request)
+    db.session.commit()
+
+    flash('You must be verified by the landlord before reviewing this property.', 'info')
+    return redirect(url_for('index_views.get_home_page'))
 
     new_review = Review(content = content,rating = rating,tenant_id = tenant_id,apartment_id = apartment_id)
     db.session.add(new_review)
