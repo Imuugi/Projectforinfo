@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request
 from App.controllers import (view_listings, create_listing, verify_tenant,delete_apartment)
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from App.models import ApartmentListing
+from App.controllers import verify_tenant,delete_request
 landlord_views = Blueprint('landlord_views',__name__,template_folder='../templates')
 
 @landlord_views.route('/viewlisting')
@@ -9,7 +10,13 @@ landlord_views = Blueprint('landlord_views',__name__,template_folder='../templat
 def list_apartments():
     landlord_id = get_jwt_identity()
     listings = view_listings(landlord_id)
+<<<<<<< HEAD
     return render_template('viewlisting.html', listings =listings)
+=======
+    return render_template('index.html',listings  = listings)
+
+
+>>>>>>> 4095c4aab60da7779db7ac2573b053d27a1daf01
 
 
 @landlord_views.route('/landlord/create-listing', methods=['GET', 'POST'])
@@ -60,6 +67,7 @@ def verify_tenant():
     return render_template('index.html')
 
 @landlord_views.route('/ldsearch')
+@jwt_required()
 def search():
     query = request.args.get('query')
     filter_by = request.args.get('filter')
@@ -76,3 +84,26 @@ def search():
         results = []
 
     return render_template('landlord_search_results.html', results=results, query=query, filter_by=filter_by)
+<<<<<<< HEAD
+=======
+
+@landlord_views.route('/landlord/accept_request' ,methods=['GET', 'POST'])
+@jwt_required()
+def accept_request():
+    if request.method == 'POST':
+        request_id = request.form['request_id']
+        tenant_id = request.form['tenant_id']
+        apartment_id = request.form['apartment_id']
+        landlord_id = request.form['landlord_id']
+        verify_tenant(landlord_id,tenant_id,apartment_id)
+        delete_request(request_id)
+        return render_template('landlordhome.html')
+
+       
+@landlord_views.route('/landlord/decline_request',methods=['GET', 'POST'])
+@jwt_required()
+def decline_request():
+    request_id = request.form['request_id']
+    delete_request(request_id)
+    return render_template('landlordhome.html')
+>>>>>>> 4095c4aab60da7779db7ac2573b053d27a1daf01
