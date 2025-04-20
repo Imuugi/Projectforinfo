@@ -104,9 +104,10 @@
     <button onclick="toggleReviewForm()">Create a Review</button>
 
     <div id="review-form" style="display:none; margin-top:20px;">
-        <form method="POST">
+        <form method="POST" action="{{ url_for('tenant_views.post_review') }}">
             <textarea name="content" placeholder="Write your review here..." required rows="4" style="width: 100%;"></textarea>
             <br><br>
+            <input type="hidden" name="apartment_id" value="{{ apartment.id }}">
             <label>Rating:</label><br>
             {% for i in range(1, 6) %}
                 <input type="radio" id="rating{{ i }}" name="rating" value="{{ i }}" required>

@@ -1,5 +1,6 @@
-from App.models import Tenant, Review, TenantVerification, ApartmentListing
+from App.models import Tenant, Review, TenantVerification, ApartmentListing,VerificationRequest
 from App.database import db
+from flask import redirect,url_for,render_template
 
 def create_review(tenant_id,content,rating,apartment_id):
     apartment = ApartmentListing.query.get(apartment_id)
@@ -12,17 +13,18 @@ def create_review(tenant_id,content,rating,apartment_id):
 
     if not verified:
 
+
     # Create a verification request
         verification_request = VerificationRequest(
-        tenant_id=current_user.id,
+        tenant_id=tenant_id,
         apartment_id=apartment.id,
         landlord_id=apartment.landlord_id
     )
-    db.session.add(verification_request)
-    db.session.commit()
+        db.session.add(verification_request)
+        db.session.commit()
 
-    flash('You must be verified by the landlord before reviewing this property.', 'info')
-    return redirect(url_for('index_views.get_home_page'))
+    #flash('You must be verified by the landlord before reviewing this property.', 'info')
+        return render_template('homepage.html')
 
     new_review = Review(content = content,rating = rating,tenant_id = tenant_id,apartment_id = apartment_id)
     db.session.add(new_review)
