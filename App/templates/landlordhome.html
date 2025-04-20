@@ -215,14 +215,14 @@
       {% for req in requests %}
       <div>
         <p><strong>{{ req.tenant_id }}</strong> requested for apartment <strong>{{ req.apartment_id }}</strong></p>
-        <form method="POST" action="/landlord/accept_request" style="display: inline;">
+        <form action="{{ url_for('landlord_views.accept_request') }}" method="POST" style="display: inline;">
           <input type="hidden" name="tenant_id" value="{{ req.tenant_id }}">
           <input type="hidden" name="landlord_id" value="{{ req.landlord_id }}">
           <input type="hidden" name="apartment_id" value="{{ req.apartment_id }}">
           <input type="hidden" name="request_id" value="{{ req.id }}">
           <button type="submit" class="landlord-btn btn-view">Accept</button>
         </form>
-        <form method="POST" action="/landlord/decline_request" style="display: inline;">
+        <form method="POST" action="{{ url_for('landlord_views.decline_request') }}" style="display: inline;">
           <input type="hidden" name="request_id" value="{{ req.id }}">
           <button type="submit" class="landlord-btn btn-create">Decline</button>
         </form>

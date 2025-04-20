@@ -93,18 +93,24 @@ def search():
 
 
 
-@landlord_views.route('/landlord/accept_request' ,methods=['GET', 'POST'])
+@landlord_views.route('/landlord/accept_request', methods=['GET', 'POST'])
 @jwt_required()
 def accept_request():
     if request.method == 'POST':
-        request_id = request.form['request_id']
-        tenant_id = request.form['tenant_id']
-        apartment_id = request.form['apartment_id']
-        landlord_id = request.form['landlord_id']
-        verify_tenant(landlord_id,tenant_id,apartment_id)
+        current_username = get_jwt_identity()
+        landlord = Landlord.query.filter_by(username=current_username).first()
+
+        tenant_id = request.form.get('tenant_id')
+        apartment_id = request.form.get('apartment_id')
+        request_id = request.form.get('request_id')
+
+        verify_tenant(landlord.id, tenant_id, apartment_id)
         delete_request(request_id)
+
         requests = VerificationRequest.query.filter_by(landlord_id=landlord.id).all()
-        return render_template('landlordhome.html',requests = requests)
+        listings = ApartmentListing.query.filter_by(landlord_id=landlord.id).all()
+
+        return render_template('landlordhome.html', requests=requests, listings=listings)
 
        
 @landlord_views.route('/landlord/decline_request',methods=['GET', 'POST'])
