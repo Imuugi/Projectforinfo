@@ -128,9 +128,9 @@
                 <p class="listing-price">${{ listing.price }}/month</p>
                 <div class="listing-actions">
                     <button class="action-btn edit-btn" onclick="location.href='/edit-listing/{{ listing.id }}'">Edit</button>
-                    <form method="POST" action="/landlord/delete-listing" style="display: inline;">
+                    <form method="POST" action="{{ url_for('landlord_views.delete_listing') }}" style="display: inline;">
                         <input type="hidden" name="listing_id" value="{{ listing.id }}">
-                        <button type="submit" class="action-btn delete-btn">Delete</button>
+                        <button type="submit" class="action-btn delete-btn" onclick="return confirm('Are you sure you want to delete this listing?')">Delete</button>
                     </form>
                 </div>
             </div>

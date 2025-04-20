@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from App.controllers import (view_listings, create_listing, verify_tenant,delete_apartment)
 from App.models import User
 from flask_jwt_extended import jwt_required, get_jwt_identity
@@ -17,41 +17,42 @@ def list_apartments():
             return render_template('viewlisting.html', listings=listings)
     return "Please login as a landlord", 401
 
-@landlord_views.route('/landlord/create-listing', methods=['GET', 'POST'])
+@landlord_views.route('/createlisting', methods=['GET', 'POST'])
 @jwt_required()
 def create_listing_page():
     if request.method == 'POST':
-        landlord_id = get_jwt_identity()
-        title = request.form['title']
-        description = request.form['description']
-        location = request.form['location']
-        amenities = request.form['amenities']
-        price = float(request.form['price'])
-
-        listing = create_listing(title, description, location, amenities, price, landlord_id)
-        return redirect(url_for('landlord_views.list_apartments'))
-
-    return render_template('index.html')
+        username = get_jwt_identity()
+        user = User.query.filter_by(username=username).first()
+        if user and user.landlord:
+            title = request.form['title']
+            description = request.form['description']
+            location = request.form['location']
+            amenities = request.form['amenities']
+            price = float(request.form['price'])
+           
+            
+            listing = create_listing(title, description, location, amenities, price, user.landlord.id)
+            return redirect(url_for('index_views.landlord_home'))
+            
+    return render_template('createlisting.html')
 
 
 @landlord_views.route('/landlord/delete-listing',methods = ['GET','POST'])
 @jwt_required()
 def delete_listing():
-    landlord_id = get_jwt_identity()
+    username = get_jwt_identity()
+    user = User.query.filter_by(username=username).first()
     
     if request.method == 'POST':
         listing_id = request.form.get('listing_id')
 
         if not listing_id:
             return "Missing listing ID", 400
-        deleted_listing = delete_apartment(landlord_id, listing_id)
+            
+        deleted_listing = delete_apartment(listing_id, user.landlord.id)
+        return redirect(url_for('landlord_views.list_apartments'))
 
-        if deleted_listing:
-            return "Listing deleted successfully!", 200
-        else:
-            return "Listing not found or unauthorized", 404
-
-    return render_template('index.html')
+    return render_template('createlisting.html')
 
 @landlord_views.route('/landlord/verifytenant', methods = ['GET','POST'])
 @jwt_required()
@@ -103,3 +104,4 @@ def decline_request():
     request_id = request.form['request_id']
     delete_request(request_id)
     return render_template('landlordhome.html', listings=ApartmentListing.query.all())
+

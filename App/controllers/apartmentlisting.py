@@ -20,7 +20,7 @@ def delete_apartment(apartment_id,landlord_id):
     
     db.session.delete(apartment)
     db.session.commit()
-
+    return apartment
 
 def update_apartment(apartment_id, title=None, description=None, location=None, amenities=None, price=None, image = None):
     apartment = ApartmentListing.query.get(apartment_id)
