@@ -10,13 +10,10 @@ landlord_views = Blueprint('landlord_views',__name__,template_folder='../templat
 def list_apartments():
     landlord_id = get_jwt_identity()
     listings = view_listings(landlord_id)
-<<<<<<< HEAD
     return render_template('viewlisting.html', listings =listings)
-=======
-    return render_template('index.html',listings  = listings)
 
 
->>>>>>> 4095c4aab60da7779db7ac2573b053d27a1daf01
+
 
 
 @landlord_views.route('/landlord/create-listing', methods=['GET', 'POST'])
@@ -84,8 +81,8 @@ def search():
         results = []
 
     return render_template('landlord_search_results.html', results=results, query=query, filter_by=filter_by)
-<<<<<<< HEAD
-=======
+
+
 
 @landlord_views.route('/landlord/accept_request' ,methods=['GET', 'POST'])
 @jwt_required()
@@ -106,4 +103,4 @@ def decline_request():
     request_id = request.form['request_id']
     delete_request(request_id)
     return render_template('landlordhome.html')
->>>>>>> 4095c4aab60da7779db7ac2573b053d27a1daf01
+

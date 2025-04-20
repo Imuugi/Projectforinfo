@@ -1,5 +1,5 @@
 from App.database import db
-
+from datetime import datetime
 class VerificationRequest(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     tenant_id = db.Column(db.Integer, db.ForeignKey('tenant.id'), nullable=False)

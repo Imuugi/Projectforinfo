@@ -5,3 +5,4 @@ from .apartmentlisting import *
 from .landlord import *
 from .tenant import *
 from .review import *
+from .verificationrequest import *
