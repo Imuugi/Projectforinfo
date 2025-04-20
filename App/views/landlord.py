@@ -1,18 +1,21 @@
 from flask import Blueprint, render_template, request
 from App.controllers import (view_listings, create_listing, verify_tenant,delete_apartment)
+from App.models import User
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from App.models import ApartmentListing
 from App.controllers import verify_tenant,delete_request
 landlord_views = Blueprint('landlord_views',__name__,template_folder='../templates')
 
 @landlord_views.route('/viewlisting')
+@jwt_required()
 def list_apartments():
-    listings = view_listings(landlord_id)
-    return render_template('viewlisting.html', listings =listings)
-
-
-
-
+    username = get_jwt_identity()
+    if username:
+        user = User.query.filter_by(username=username).first()
+        if user and user.landlord:
+            listings = ApartmentListing.query.filter_by(landlord_id=user.landlord.id).all()
+            return render_template('viewlisting.html', listings=listings)
+    return "Please login as a landlord", 401
 
 @landlord_views.route('/landlord/create-listing', methods=['GET', 'POST'])
 @jwt_required()
