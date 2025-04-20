@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
 from App.controllers import (create_review,view_reviews)
 from flask_jwt_extended import jwt_required, get_jwt_identity
-
+from App.models import ApartmentListing
 tenant_views = Blueprint('tenant_views',__name__,template_folder='../templates')
 
 @tenant_views.route('/tenant/create_review',methods=['GET', 'POST'])

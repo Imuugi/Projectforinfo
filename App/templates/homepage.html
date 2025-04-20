@@ -56,20 +56,6 @@
             justify-content: center;
             color: #5A7D7C;
         }
-        .search-options button {
-            margin: 0.3rem;
-            padding: 0.5rem 1rem;
-            border: none;
-            background-color: #5A7D7C;
-            color: white;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .search-options button:hover {
-            background-color: #45615f;
-        } 
     </style>
 </head>
 <body>
@@ -77,19 +63,50 @@
     
     <div class="search-box">
         <form method="GET" action="/search">
-          <input type="text" name="query" placeholder="Search..." required />
-      
-          <div class="search-options">
-            <button type="submit" name="filter" value="location">Location</button>
-            <button type="submit" name="filter" value="amenities">Amenities</button>
-            <button type="submit" name="filter" value="price">Price</button>
-          </div>
+            <div class="search-input">
+                <input type="text" name="query" placeholder="Search..." required>
+                <div class="search-filters">
+                    <button type="submit" name="filter" value="location">Search by Location</button>
+                    <button type="submit" name="filter" value="amenities">Search by Amenities</button>
+                    <button type="submit" name="filter" value="price">Search by Price</button>
+                </div>
+            </div>
         </form>
-      </div>
-    
-    <div class="filters">
-        <!-- Filter buttons will go here -->
     </div>
+
+    <style>
+        .search-input {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .search-input input {
+            padding: 10px;
+            border: 1px solid #5A7D7C;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .search-filters {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .search-filters button {
+            padding: 8px 15px;
+            background-color: #5A7D7C;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .search-filters button:hover {
+            background-color: #4a6b6a;
+        }
+    </style>
     
     <!-- Apartment listings will be inserted here -->
     <div class="apartment-card">
