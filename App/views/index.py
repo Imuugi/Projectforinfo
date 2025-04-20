@@ -1,5 +1,6 @@
 from flask import Blueprint, redirect, render_template, request, send_from_directory, jsonify
 from App.controllers import create_user, initialize,get_user_by_username
+from App.models import ApartmentListing
 
 index_views = Blueprint('index_views', __name__, template_folder='../templates')
 
@@ -18,11 +19,13 @@ def health_check():
 
 @index_views.route('/homepage', methods=['GET'])
 def get_home_page():
-    return render_template('homepage.html')
+    all_apartments = ApartmentListing.query.all()
+    return render_template('homepage.html', listings=all_apartments)
 
 @index_views.route('/landlordhome')
 def landlord_home():
-    return render_template('landlordhome.html')
+    all_apartments = ApartmentListing.query.all()
+    return render_template('landlordhome.html', listings=all_apartments)
 
 @index_views.route('/landlord-login.html') 
 def show_landlord_login():

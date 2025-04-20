@@ -121,12 +121,28 @@
     </form>
   </div>
 
-  <div class="apartment-card">
-    <!-- Dynamic content will go here -->
-  </div>
+</form>
+</div>
 
-  <div class="image-placeholder">
-    <!-- Featured apartment image will go here -->
+<div class="listings-container">
+  {% for listing in listings %}
+  <div class="apartment-card">
+    <h3>{{ listing.title }}</h3>
+    {% if listing.image %}
+      <img src="{{ listing.image }}" alt="Apartment Image" style="width: 100%; height: 200px; object-fit: cover;">
+    {% else %}
+      <div class="image-placeholder">No Image Available</div>
+    {% endif %}
+    <p><strong>Location:</strong> {{ listing.location }}</p>
+    <p><strong>Price:</strong> ${{ listing.price }}</p>
+    <p><strong>Amenities:</strong> {{ listing.amenities }}</p>
+    <p>{{ listing.description }}</p>
+  </div>
+  {% endfor %}
+  
+</div>
+</body>
+</html>
   </div>
 </body>
 </html>

@@ -102,5 +102,4 @@ def accept_request():
 def decline_request():
     request_id = request.form['request_id']
     delete_request(request_id)
-    return render_template('landlordhome.html')
-
+    return render_template('landlordhome.html', listings=ApartmentListing.query.all())
