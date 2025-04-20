@@ -1,49 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Results</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            color: #5A7D7C;
-            background-color: #E6F1F2;
-        }
-        .listing {
-            background-color: white;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            border: 1px solid #5A7D7C;
-        }
-        .price {
-            color: #FA8E61;
-            font-weight: bold;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Search Results</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary-color: #236574;
+      --accent-color: #FF7B41;
+      --background-color: #FFFFFF;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      color: var(--primary-color);
+      background-color: var(--background-color);
+    }
+
+    h1 {
+      border-bottom: 2px solid var(--accent-color);
+      padding-bottom: 10px;
+    }
+
+    .listing {
+      background-color: white;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid var(--primary-color);
+    }
+
+    .price {
+      color: var(--accent-color);
+      font-weight: bold;
+    }
+
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-    <h1>Search Results</h1>
-    <p>Showing results for: {{ query }} (Filter: {{ filter_by }})</p>
-    
-    {% if results %}
-        {% for apartment in results %}
-        <div class="listing">
-            <h2>{{ apartment.title }}</h2>
-            <p>{{ apartment.description }}</p>
-            <p><strong>Location:</strong> {{ apartment.location }}</p>
-            <p><strong>Amenities:</strong> {{ apartment.amenities }}</p>
-            <p class="price">${{ apartment.price }}</p>
-        </div>
-        {% endfor %}
-    {% else %}
-        <p>No results found.</p>
-    {% endif %}
-    
-    <a href="/landlordhome" style="color: #5A7D7C;">Back to Home</a>
+  <h1>Search Results</h1>
+  <p>Showing results for: {{ query }} (Filter: {{ filter_by }})</p>
+
+  {% if results %}
+    {% for apartment in results %}
+    <div class="listing">
+      <h2>{{ apartment.title }}</h2>
+      <p>{{ apartment.description }}</p>
+      <p><strong>Location:</strong> {{ apartment.location }}</p>
+      <p><strong>Amenities:</strong> {{ apartment.amenities }}</p>
+      <p class="price">${{ apartment.price }}</p>
+    </div>
+    {% endfor %}
+  {% else %}
+    <p>No results found.</p>
+  {% endif %}
+
+  <a href="/landlordhome">← Back to Dashboard</a>
 </body>
 </html>

@@ -1,119 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apartment Reviews</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            color: #5A7D7C;
-            background-color: #E6F1F2;
-        }
-        h1 {
-            color: #5A7D7C;
-            border-bottom: 2px solid #FA8E61;
-            padding-bottom: 10px;
-        }
-        .search-box {
-            background-color: white;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            border: 1px solid #5A7D7C;
-        }
-        .filters {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        .filters div {
-            padding: 8px 15px;
-            background-color: #5A7D7C;
-            color: white;
-            border-radius: 20px;
-            cursor: pointer;
-        }
-        .apartment-card {
-            border: 1px solid #5A7D7C;
-            border-radius: 5px;
-            padding: 15px;
-            margin-bottom: 15px;
-            background-color: white;
-        }
-        .stars {
-            color: #FA8E61;
-        }
-        .image-placeholder {
-            height: 200px;
-            background-color: white;
-            border: 1px dashed #5A7D7C;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #5A7D7C;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apartment Reviews</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #236574;
+      --secondary-color: #1B4C8A;
+      --accent-color: #FF7B41;
+      --background-color: #FFFFFF;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      color: var(--primary-color);
+      background-color: var(--background-color);
+    }
+
+    h1 {
+      color: var(--primary-color);
+      border-bottom: 2px solid var(--accent-color);
+      padding-bottom: 10px;
+    }
+
+    .search-box {
+      background-color: white;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      border: 1px solid var(--primary-color);
+    }
+
+    .filters {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .filters div {
+      padding: 8px 15px;
+      background-color: var(--primary-color);
+      color: white;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    .apartment-card {
+      border: 1px solid var(--primary-color);
+      border-radius: 5px;
+      padding: 15px;
+      margin-bottom: 15px;
+      background-color: white;
+    }
+
+    .stars {
+      color: var(--accent-color);
+    }
+
+    .image-placeholder {
+      height: 200px;
+      background-color: white;
+      border: 1px dashed var(--primary-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-color);
+    }
+
+    .search-input {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .search-input input {
+      padding: 10px;
+      border: 1px solid var(--primary-color);
+      border-radius: 5px;
+      font-size: 16px;
+      color: var(--primary-color);
+    }
+
+    .search-filters {
+      display: flex;
+      gap: 10px;
+    }
+
+    .search-filters button {
+      padding: 8px 15px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .search-filters button:hover {
+      background-color: #1e5562;
+    }
+  </style>
 </head>
 <body>
-    <h1>Apartment Reviews</h1>
-    
-    <div class="search-box">
-        <form method="GET" action="/search">
-            <div class="search-input">
-                <input type="text" name="query" placeholder="Search..." required>
-                <div class="search-filters">
-                    <button type="submit" name="filter" value="location">Search by Location</button>
-                    <button type="submit" name="filter" value="amenities">Search by Amenities</button>
-                </div>
-            </div>
-        </form>
-    </div>
+  <h1>Apartment Reviews</h1>
 
-    <style>
-        .search-input {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        
-        .search-input input {
-            padding: 10px;
-            border: 1px solid #5A7D7C;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        
-        .search-filters {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .search-filters button {
-            padding: 8px 15px;
-            background-color: #5A7D7C;
-            color: white;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .search-filters button:hover {
-            background-color: #4a6b6a;
-        }
-    </style>
-    
-    <!-- Apartment listings will be inserted here -->
-    <div class="apartment-card">
-        <!-- Dynamic content will go here -->
-    </div>
-    
-    <div class="image-placeholder">
-        <!-- Featured apartment image will go here -->
-    </div>
+  <div class="search-box">
+    <form method="GET" action="/search">
+      <div class="search-input">
+        <input type="text" name="query" placeholder="Search..." required>
+        <div class="search-filters">
+          <button type="submit" name="filter" value="location">Search by Location</button>
+          <button type="submit" name="filter" value="amenities">Search by Amenities</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="apartment-card">
+    <!-- Dynamic content will go here -->
+  </div>
+
+  <div class="image-placeholder">
+    <!-- Featured apartment image will go here -->
+  </div>
 </body>
 </html>

@@ -4,17 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Maco D Place - Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
   <style>
     :root {
-      --slate-teal: #5A7D7C;
-      --pale-aqua: #E6F1F2;
-      --coral: #FA8E61;
+      --primary-color: #236574;
+      --secondary-color: #1B4C8A;
+      --accent-color: #FF7B41;
+      --background-color: #FFFFFF;
     }
 
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--pale-aqua);
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--background-color);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -36,7 +38,7 @@
       font-size: 1.6rem;
       font-weight: bold;
       margin-bottom: 1.8rem;
-      color: var(--slate-teal);
+      color: var(--primary-color);
     }
 
     form {
@@ -65,7 +67,7 @@
     .forgot-password {
       font-size: 0.85rem;
       text-align: right;
-      color: var(--slate-teal);
+      color: var(--primary-color);
       text-decoration: none;
       margin-top: -0.6rem;
       margin-bottom: 0.5rem;
@@ -73,7 +75,7 @@
     }
 
     .login-btn {
-      background-color: var(--slate-teal);
+      background-color: var(--primary-color);
       color: white;
       border: none;
       padding: 0.75rem;
@@ -84,35 +86,36 @@
     }
 
     .login-btn:hover {
-      background-color: #45615f;
+      background-color: #1e5562;
     }
 
     .bottom-text {
       font-size: 0.9rem;
       margin-top: 1rem;
     }
-    .landlord-login-btn {
-  margin-top: 0.6rem;
-  background-color: var(--coral);
-  border: none;
-  color: white;
-  padding: 0.6rem;
-  border-radius: 8px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.3s ease;
-  width: 100%;
-}
 
-.landlord-login-btn:hover {
-  background-color: #e67c4c;
-}
+    .landlord-login-btn {
+      margin-top: 0.6rem;
+      background-color: var(--accent-color);
+      border: none;
+      color: white;
+      padding: 0.6rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      width: 100%;
+    }
+
+    .landlord-login-btn:hover {
+      background-color: #e46e35;
+    }
 
     .create-account-btn {
       margin-top: 0.6rem;
       background-color: transparent;
-      border: 2px solid var(--coral);
-      color: var(--coral);
+      border: 2px solid var(--accent-color);
+      color: var(--accent-color);
       padding: 0.6rem;
       border-radius: 8px;
       font-size: 1rem;
@@ -122,7 +125,7 @@
     }
 
     .create-account-btn:hover {
-      background-color: var(--coral);
+      background-color: var(--accent-color);
       color: white;
     }
   </style>
@@ -134,17 +137,16 @@
     <form method="POST" action="/login">
       <div>
         <label for="Username">Username</label>
-        <input type="text" id="name" name = "username" placeholder="Enter your Username" required />
+        <input type="text" id="name" name="username" placeholder="Enter your Username" required />
       </div>
       <div>
         <label for="password">Password</label>
-        <input type="password" id="password" name = "password" placeholder="Enter your password" required />
+        <input type="password" id="password" name="password" placeholder="Enter your password" required />
       </div>
       <button class="login-btn" type="submit">Login</button>
-    
-    <button class="create-account-btn">Create an Account</button>
+      <button class="create-account-btn">Create an Account</button>
+    </form>
   </div>
 
 </body>
 </html>
-
