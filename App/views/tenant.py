@@ -38,12 +38,6 @@ def search():
         results = ApartmentListing.query.filter(ApartmentListing.location.ilike(f"%{query}%")).all()
     elif filter_by == 'amenities':
         results = ApartmentListing.query.filter(ApartmentListing.amenities.ilike(f"%{query}%")).all()
-    elif filter_by == 'price':
-        try:
-            price_value = float(query)
-            results = ApartmentListing.query.filter(ApartmentListing.price <= price_value).all()
-        except ValueError:
-            results = []
     else:
         results = []
 
