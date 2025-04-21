@@ -212,7 +212,7 @@
         <div class="review">
             <p><strong>Rating:</strong> {{ review.rating }}/5</p>
             <p>{{ review.content }}</p>
-            <p>Created by UserID:{{review.tenant_id}}</p>
+            <p><strong>Created by:</strong> {{ review.tenant.username }}</p>
             <small>Posted on {{ review.created_at.strftime('%Y-%m-%d') }}</small>
         </div>
         <hr>

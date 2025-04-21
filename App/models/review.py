@@ -1,5 +1,6 @@
 from App.database import db
 from datetime import datetime
+from App.models import Tenant
 class Review(db.Model):
     __tablename__ = 'reviews'
 
@@ -10,6 +11,8 @@ class Review(db.Model):
 
     tenant_id = db.Column(db.Integer, db.ForeignKey('tenants.id'), nullable=False)
     apartment_id = db.Column(db.Integer, db.ForeignKey('apartment_listings.id'), nullable=False)
+    # In Review model
+    tenant = db.relationship('Tenant', back_populates='reviews')
 
     def __init__(self,content,rating,tenant_id,apartment_id):
         self.content = content

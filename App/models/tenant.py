@@ -8,7 +8,9 @@ class Tenant(User):
 
    
     reviews = db.relationship('Review', backref='tenant', lazy=True)
-    
+    # In Tenant model
+    reviews = db.relationship('Review', back_populates='tenant')
+
     def __init__(self, username, password):
         self.username = username
         self.set_password(password)
