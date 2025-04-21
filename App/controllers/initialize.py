@@ -6,7 +6,8 @@ def initialize():
     db.drop_all()
     db.create_all()
     tenant1 = Tenant('bob', 'bobpass')
-
+    db.session.add(tenant1)
+    db.session.commit()
     # Create some dummy landlords
     landlord1 = Landlord(username="landlord_john", password="password123")
     landlord2 = Landlord(username="landlord_jane", password="securepass456")
