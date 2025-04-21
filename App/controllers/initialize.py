@@ -5,7 +5,7 @@ from App.models import Landlord,Tenant,Review,ApartmentListing
 def initialize():
     db.drop_all()
     db.create_all()
-    create_user('bob', 'bobpass','tenant')
+    tenant1 = Tenant('bob', 'bobpass')
 
     # Create some dummy landlords
     landlord1 = Landlord(username="landlord_john", password="password123")
