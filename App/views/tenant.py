@@ -8,7 +8,7 @@ tenant_views = Blueprint('tenant_views',__name__,template_folder='../templates')
 @jwt_required()
 def post_review():
     tenantname = get_jwt_identity()
-    tenant = Tenant.query.filter_by(username = tenantname)
+    tenant = Tenant.query.filter_by(username = tenantname).first()
 
     listings = ApartmentListing.query.all()
     if request.method == 'POST':
