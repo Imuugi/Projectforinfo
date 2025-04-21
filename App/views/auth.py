@@ -36,8 +36,8 @@ def login_action():
     user = get_user_by_username(username)
 
     if not user or not user.check_password(password):
-        flash('Bad username or password given', 'error')
-        return redirect(url_for('auth_views.get_login_page')), 401
+        flash('Invalid username or password. Please try again.', 'error')
+        return redirect(url_for('index_views.show_login'))
 
     # Determine user type
     if user.user_type == 'landlord':
@@ -63,8 +63,7 @@ def login_action():
 
     flash('Login Successful', 'success')
     return response
-
-
+    
 @auth_views.route('/logout', methods=['GET'])
 def logout_action():
     response = redirect(url_for('index_views.show_login'))

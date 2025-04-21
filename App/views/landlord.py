@@ -119,13 +119,11 @@ def accept_request():
     return redirect(url_for('index_views.landlord_home'))  # Handle GET requests
 
        
-@landlord_views.route('/landlord/decline_request',methods=['GET', 'POST'])
+@landlord_views.route('/landlord/decline_request', methods=['POST'])
 @jwt_required()
 def decline_request():
     current_username = get_jwt_identity()
     landlord = Landlord.query.filter_by(username=current_username).first()
     request_id = request.form['request_id']
-    requests = VerificationRequest.query.filter_by(landlord_id=landlord.id).all()
     delete_request(request_id)
-    return render_template('landlordhome.html', listings=ApartmentListing.query.all(),requests = requests)
-
+    return redirect(url_for('index_views.landlord_home'))
