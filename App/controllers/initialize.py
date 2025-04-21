@@ -1,6 +1,6 @@
 from .user import create_user
 from App.database import db
-
+from App.models import Landlord,Tenant,Review,ApartmentListing
 
 def initialize():
     db.drop_all()
