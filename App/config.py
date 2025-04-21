@@ -1,10 +1,17 @@
 import os
-
+from datetime import datetime, timedelta
 def load_config(app, overrides):
     if os.path.exists(os.path.join('./App', 'custom_config.py')):
         app.config.from_object('App.custom_config')
     else:
-        app.config.from_object('App.default_config')
+        config = {'ENV': os.environ.get('ENV', 'DEVELOPMENT')}
+        delta = 10
+        if config['ENV'] == "PRODUCTION":
+            app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("SQLALCHEMY_DATABASE_URI")
+            app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
+            app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(days=int(os.environ.get('JWT_ACCESS_TOKEN_EXPIRES')))
+        else:
+            app.config.from_object('App.default_config')
     app.config.from_prefixed_env()
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['TEMPLATES_AUTO_RELOAD'] = True
