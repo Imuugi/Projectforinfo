@@ -98,10 +98,10 @@ def accept_request():
         print(f"TENANT ID RECEIVED: {tenant_id}")
         if not all([tenant_id, apartment_id, request_id]):
             return "Missing required parameters", 400
-
+        
         try:
             # Get tenant by ID
-            tenant = Tenant.query.filter_by(username=tenant_id).first()
+            tenant = Tenant.query.get(int(tenant_id))
             if not tenant:
                 return "Tenant not found", 404
                 

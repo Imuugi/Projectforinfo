@@ -141,7 +141,7 @@
       <div class="logo-container">
         <img src="{{ url_for('static', filename='sample_images/logo.jpg') }}" alt="Maco D Place Logo" style="max-width: 200px; margin-bottom: 1.8rem;">
       </div>
-    <form method="POST" action="/login">
+    <form method="POST" action="{{ url_for('auth_views.login_action') }}">
       <div>
         <label for="Username">Username</label>
         <input type="text" id="name" name="username" placeholder="Enter your Username" required />

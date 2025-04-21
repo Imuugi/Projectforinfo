@@ -1,13 +1,15 @@
 from flask import Blueprint, render_template, request
 from App.controllers import (create_review,view_reviews)
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from App.models import ApartmentListing
+from App.models import ApartmentListing,Tenant
 tenant_views = Blueprint('tenant_views',__name__,template_folder='../templates')
 
 @tenant_views.route('/tenant/create_review',methods=['GET', 'POST'])
 @jwt_required()
 def post_review():
-    tenant_id = get_jwt_identity()
+    tenantname = get_jwt_identity()
+    tenant = Tenant.query.filter_by(username = tenantname).first()
+
     listings = ApartmentListing.query.all()
     if request.method == 'POST':
         
@@ -15,7 +17,7 @@ def post_review():
         rating = request.form['rating']
         apartment_id = request.form['apartment_id']
 
-        review = create_review(tenant_id,content,rating,apartment_id)
+        review = create_review(tenant.id,content,rating,apartment_id)
         return render_template('homepage.html',listings = listings)
     
     return render_template('homepage.html',listings = listings)
